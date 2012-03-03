@@ -64,7 +64,6 @@ class ApiController < ApplicationController
   def generate_plan
     if !params.key?(:classestaken)
       params[:classestaken] = []
-      return
     end
     
     db_courses = Major.where("name='Computer Science, B.S'").first.courses.all
@@ -94,7 +93,7 @@ class ApiController < ApplicationController
     quarters[0] = Array.new
     j = 0
     i = 1
-    quarters[0].push(Course.find(list[i]['id']))
+    quarters[0].push(Course.find(list[0]['id']))
     while i < list.count
       Rails.logger.info('I: #{i}')
       if ( quarters[j].length > 3 )
@@ -121,41 +120,6 @@ class ApiController < ApplicationController
 
     render :json => {:plan => quarters}
 
-    # courses.each do |t|
-    #   value = []
-    #   Relation.where(:course => t[:id]).each do |a|
-    #     value << a[:prereq]
-    #     if courses.find_by_id(a[:prereq]) == nil
-    #       courses << Course.find_by_id(a[:prereq])
-    #     end
-    #   end
-    #   list[t[:id]] = value
-    # end
-
-    # sorted = list.tsort
-
-    # ret = []
-    # temp = []
-
-    # while !sorted.empty?
-    #   units = 0
-    #   while units <= params[:units].to_i
-    #     course = Course.find_by_id sorted.pop if course == nil
-    #     if course == nil
-    #       break
-    #     end
-    #     if units + course[:units] > params[:units].to_i
-    #       break
-    #     end
-    #     units += course[:units]
-    #     temp << course[:name]
-    #     course = nil
-    #   end
-    #   ret << temp
-    #   temp = []
-    # end
-
-    # render :json => {:result => ret}
 
   end
 

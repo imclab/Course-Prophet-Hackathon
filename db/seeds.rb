@@ -80,19 +80,29 @@ Relation.create(prereq: cse21.id, course: cse100.id)
 Relation.create(prereq: Course.where("department_id=#{cse.id} and number = '30'").first[:id], course: cse100.id)
 
 Course.create([
-{name: 'CSE Elective', department_id: cse.id, number: '000', units: 4},
-{name: 'CSE Elective', department_id: cse.id, number: '000', units: 4},
-{name: 'CSE Elective', department_id: cse.id, number: '000', units: 4},
-{name: 'CSE Elective', department_id: cse.id, number: '000', units: 4},
-{name: 'CSE Elective', department_id: cse.id, number: '000', units: 4}
+{name: 'CSE Elective', department_id: cse.id, number: '999', units: 4, description: "CSE IS FUN!"},
+{name: 'CSE Elective', department_id: cse.id, number: '999', units: 4, description: "CSE IS FUN!"},
+{name: 'CSE Elective', department_id: cse.id, number: '999', units: 4, description: "CSE IS FUN!"},
+{name: 'CSE Elective', department_id: cse.id, number: '999', units: 4, description: "CSE IS FUN!"},
+{name: 'CSE Elective', department_id: cse.id, number: '999', units: 4, description: "CSE IS FUN!"}
 ]).each do |elective|
   Relation.create(prereq: cse100.id, course: elective.id)
   MajorCourse.create(course_id: elective.id, major_id: csbs.id)
 end
 
+math20a = Course.where("department_id=#{math.id} and number='20A'").first
+math20b = Course.where("department_id=#{math.id} and number='20B'").first
+math20c = Course.where("department_id=#{math.id} and number='20C'").first
+math20f = Course.where("department_id=#{math.id} and number='20F'").first
+
+Relation.create(prereq: math20a.id, course: math20b.id)
+Relation.create(prereq: math20b.id, course: math20c.id)
+Relation.create(prereq: math20c.id, course: math20f.id)
+
 MajorCourse.create([
 {course_id: Course.where("department_id=#{cse.id} and number = '91'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '8A'").first.id, major_id: csbs.id},
+{course_id: Course.where("department_id=#{cse.id} and number = '8AL'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '8B'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '12'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '15L'").first.id, major_id: csbs.id},
@@ -103,7 +113,7 @@ MajorCourse.create([
 {course_id: Course.where("department_id=#{math.id} and number = '20B'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{math.id} and number = '20C'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{math.id} and number = '20F'").first.id, major_id: csbs.id},
-{course_id: Course.where("department_id=#{math.id} and number = '183'").first.id, major_id: csbs.id},
+{course_id: Course.where("department_id=#{cse.id} and number = '103'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{science.id} and number = '1'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{science.id} and number = '2'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '100'").first.id, major_id: csbs.id},
