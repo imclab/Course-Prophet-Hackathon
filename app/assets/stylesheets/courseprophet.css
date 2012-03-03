@@ -24,3 +24,7 @@ td {
  table {
   margin-bottom:  40px !important;
  }
+
+a{
+  cursor: pointer;
+}
