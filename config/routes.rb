@@ -5,6 +5,7 @@ CourseProphet::Application.routes.draw do
   match "api/plan" => 'Api#generate_plan'
   match "api/generatePlan" => 'Application#sample_plan'
   match "api/print" => 'Application#print'
+  match "api/getClasses" => 'Api#list_courses'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -48,4 +48,15 @@ class ApiController < ApplicationController
 
   end
 
+  def list_courses
+    if !params.key?(:major)
+      render :json => { :error => "You need to specify a major id!" }
+    end
+    
+    courses = Major.find_by_id(params[:major]).courses
+
+    render :json => { :result => courses }
+
+  end
+
 end
