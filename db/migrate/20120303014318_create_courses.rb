@@ -6,6 +6,10 @@ class CreateCourses < ActiveRecord::Migration
     	#major id that joins courses to their majors
     	t.integer :major_id
 
+    	#what requirement this course can fulfill i.e Math 176 and CSE 100
+    	# will have the same provides since they can both fulfill the req
+    	t.integer :provides
+
     	#course name i.e. "Intro to Java"
     	t.string :name
 

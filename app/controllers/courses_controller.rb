@@ -1,5 +1,14 @@
 class CoursesController < ApplicationController
 
-	def topoSort( courses, )
+
+	def new
+		@course = Course.new
+	end
+
+
+	def createCourse
+		
+
+	end
 
 end
