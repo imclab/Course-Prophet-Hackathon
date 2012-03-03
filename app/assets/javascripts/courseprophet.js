@@ -12,9 +12,9 @@ function selectCourse(name){
 
 function loadResults(data){
   data = data.plan;
-  var contents = '<legend>3. Results</legend><div style="text-align: right;">'+
-  '<a class="btn btn-primary" id="print">Print</a>'+
-  '<a class="btn btn-warning" id="startover">Start Over</a></div>'
+  var contents = '<legend>3. Results</legend><div style="text-align: right; margin-bottom: 27px;">'+
+  '<div class="btn-group"><a class="btn btn-primary" id="print">Print</a>'+
+  '<a class="btn btn-warning" id="startover">Start Over</a></div></div>'
   for(var i = 0; i < data.length; i++){
     var header = 
     '<table class="table table-striped table-bordered"><thead><tr colspan=2><th><h1>' +
@@ -120,7 +120,6 @@ $(document).ready(function() {
   var showclasses = true;
   var step1validated = false;
   var step2validated = false;
-  var enterpressed = 0;
   $('#step2').ajaxForm();
   $('#showallclasses').click(function(){
     $('.classes input').each( function() {
@@ -190,17 +189,15 @@ $(document).ready(function() {
     validateStep2();
   });
   $("#classsearch").keydown(function(e){
-    clearErrors();
-    var code = (e.keyCode ? e.keyCode : e.which);
-    if(code == 13) {
-      enterpressed++;
-      if(enterpressed == 2) {
-        $('#addclass').click();
-      }
-    } else {
-      enterpressed = 0;
-    }
+   clearErrors();
+   var code = (e.keyCode ? e.keyCode : e.which);
+   if(code == 13 && !$('ul.typeahead').is(':visible')) {
+      $('#addclass').click();
+   }
   });
+  $('#aboutlink').click(function() {
+    $.scrollTo($('.hero-unit'),800, {offset: {left: 0, top:-60 }});
+  })
   $('#addclass').click(function() {
     clearErrors();
     var query = $("#classsearch").val();
