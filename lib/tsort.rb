@@ -7,3 +7,4 @@ class Hash
     fetch(node).each(&block)
   end
 end
+

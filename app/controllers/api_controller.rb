@@ -22,6 +22,7 @@ class ApiController < ApplicationController
         can_take = false
         plan.each do |taken|
           Rails.logger.info("#{relation.prereq} #{taken.to_yaml} FFFF")
+
           if relation.prereq == taken['id'] && taken['level'] != level
             Rails.logger.info("YAYAYAY!")
             can_take = true
@@ -72,6 +73,23 @@ class ApiController < ApplicationController
       if skip
         next
       else
+
+        # PSEUDO CODE FOR CONCURRENCY
+        # if concurrency id of current element != unique
+        #   get all elements with same concurrent id
+        #   course = Course.new(:concurrencyId => nonunique concurrentId, 
+        #   :number => combine all the numbers into a giant string, 
+        #   :name => DUMMY, :units => total of all the units)
+        #   course.save
+        #   for each element with same concurrent id
+        #      prereq = element.getPrereqs
+        #      create new relations for dummy element( dummyCourseId, prereq )
+        #      postreq = element.getPostReqs by searching through the 
+        #                other column in the relations table
+        #      create new relations for dummy element( dummyCourseId, postreq )
+        #   end loop, dummy element should now have relations of all the total
+        #             prereqs and postreqs the elements its substituting for
+
         courses.push(course.id)
       end
     end
@@ -94,6 +112,9 @@ class ApiController < ApplicationController
         j += 1
         quarters[j] = Array.new
       end
+      # if result of Course.find.name == dummy
+      # concurrencyElementsArray = use concurrency id of dummy to get all coreq courses
+      # push it in
       quarters[j].push(Course.find(list[i]['id']))
       i += 1
     end
