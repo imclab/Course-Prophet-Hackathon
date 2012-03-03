@@ -94,7 +94,6 @@ MajorCourse.create([
 {course_id: Course.where("department_id=#{cse.id} and number = '91'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '8A'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '8B'").first.id, major_id: csbs.id},
-{course_id: Course.where("department_id=#{cse.id} and number = '11'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '12'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '15L'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '20'").first.id, major_id: csbs.id},
@@ -130,3 +129,6 @@ end
 
 alg = Course.where("name='100A. Abstract Algebra I (4)'").first.id
 Relation.where("prereq=#{alg}").delete_all
+
+cse11 = Course.where("department_id=#{cse.id} and number='11'").first.id
+Relation.where("prereq=#{cse11}").delete_all
