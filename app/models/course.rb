@@ -8,7 +8,5 @@ class Course < ActiveRecord::Base
 	# the column names should be reversed, fix later!!!!!!!
 	has_many :reverse_dependencies, :through => :relations
 
-	# remember to add which column, which should be through acronyms
-	has_one :department, :through => :department_acronyms
 
 end

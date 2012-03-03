@@ -11,32 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120303064951) do
+ActiveRecord::Schema.define(:version => 20120303095026) do
 
   create_table "courses", :force => true do |t|
+    t.integer  "major_id"
+    t.integer  "provides"
     t.string   "name"
-    t.string   "acronym"
     t.string   "number"
     t.integer  "units"
     t.string   "professor"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.text     "description"
+    t.integer  "department_id"
   end
 
-  create_table "department_acronyms", :force => true do |t|
-    t.string   "acronym"
-    t.string   "full_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "departments", :force => true do |t|
+    t.string "name"
+    t.string "acronym"
+  end
+
+  create_table "major_courses", :force => true do |t|
+    t.integer "course_id"
+    t.integer "major_id"
   end
 
   create_table "majors", :force => true do |t|
     t.text     "name"
-    t.text     "department_acronym"
-    t.text     "department"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "department_id"
   end
 
   create_table "relations", :force => true do |t|
