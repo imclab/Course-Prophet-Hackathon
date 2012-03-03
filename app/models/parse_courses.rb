@@ -59,6 +59,8 @@ class ParseCourses
     upper = acronym.upcase
     lower = acronym.downcase
 
+    department_id = Department.where('acronym = ?', upper).first.id
+
     doc = Nokogiri::Slop(open("http://www.ucsd.edu/catalog/courses/#{upper}.html"))
     data = []
     count  = 0
@@ -83,7 +85,7 @@ class ParseCourses
 
     data.each do |datum|
       Course.create({name: datum['name'], description: datum['description'],
-                     units: datum['units'], acronym: upper, number: datum['number']})
+                     units: datum['units'], department_id: department_id, number: datum['number']})
     end
   end
 end
