@@ -92,7 +92,6 @@ function validateStep2() {
   }
   if(noerrors) {
    query = $('#step2').formSerialize();
-   alert(query);
    $.ajax({
       type: "POST",
       url: '/api/generatePlan?' + query,

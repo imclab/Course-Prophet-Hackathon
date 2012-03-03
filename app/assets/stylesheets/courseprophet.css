@@ -10,3 +10,6 @@ body {
 .classes, #collegeselector, #step1wrapper, #step2wrapper, #resultswrapper {
 	display: none;
 }
+#showallclasses{
+  cursor: pointer;
+}
