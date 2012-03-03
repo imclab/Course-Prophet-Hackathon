@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120303095026) do
+ActiveRecord::Schema.define(:version => 20120303104559) do
 
   create_table "courses", :force => true do |t|
     t.integer  "major_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120303095026) do
     t.datetime "updated_at",    :null => false
     t.text     "description"
     t.integer  "department_id"
+    t.integer  "concurrency"
   end
 
   create_table "departments", :force => true do |t|
