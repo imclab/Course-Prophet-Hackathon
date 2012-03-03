@@ -1,11 +1,7 @@
-allCourses = new HashTable();
-selectedCourses = new HashTable();
-/* <% #Courses.all.each do |course| %>
-  allCourses.set(<%=#course.name%>,<%=#course.id%>);
-<% #end %> */
+
 
 function selectCourse(name){
-  selectedCourses.put(name,(allCourses.get(name));
+  $('#' + courseName).show().attr('checked',true);
 }
 
 function submit(){
@@ -43,28 +39,6 @@ function toDate(i){
   return season + ' ' + year;
 }
 
-function appendToList(courseName, checked){
-  courseHTML = '<checkbox class = "course" course-name = "' + courseName +
-               'checked = ' + checked + ""
-               courseName + '</checkbox>';
-  $('#classlist').append(courseHTML);
-}
-
-function toggleCourse(){
-  courseName = $(this).attr('course-name');
-  if ($(this).attr('checked')){
-    $(this).attr('checked',false);
-    selectedCourses.remove(courseName);
-  }else{
-    $(this).attr('checked',true);
-    selectedCourses.put(courseName,allCourses.get(courseName));
-  }
-}
-
 function viewAll(){
-  $('#classlist').empty();
-  classes = allClasses.keys();
-  for (int i = 0; i < classes.length; i++){
-    appendToList(classes[i],selectedCourses.hasKey(classes[i]));
-  }
+  $('.course').show();
 }
