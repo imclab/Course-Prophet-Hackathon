@@ -1,11 +1,13 @@
-
+function sumUnits(data){
+  var sum = 0;
+  for (var i = 0; i < data.length; i++){
+    sum += data[i].units;
+  }
+  return sum;
+}
 
 function selectCourse(name){
   $('#' + courseName).show().attr('checked',true);
-}
-
-function submit(){
-  $.post('/api/generatePlan',selectedCourses.values(),loadResults(data));
 }
 
 function loadResults(data){
@@ -32,7 +34,7 @@ function loadResults(data){
     content += '</tbody></table>'
     contents += header + content;
   }
-  $('#well').html( contents );
+  $('#plan').html( contents );
 }
 
 function toDate(i){
@@ -51,7 +53,6 @@ function toDate(i){
   var year = 2012 + parseInt((i+1)/3);
   return season + ' ' + year;
 }
-
 function clearErrors() {
   $('select').parent().parent().removeClass('error');
   $('input').parent().parent().removeClass('error');
@@ -90,7 +91,15 @@ function validateStep2() {
     noerrors = false;
   }
   if(noerrors) {
-    submit();
+   query = $('#step2').formSerialize();
+   alert(query);
+   $.ajax({
+      type: "POST",
+      url: '/api/generatePlan?' + query,
+      async: false,
+      dataType: 'JSON',
+      success: loadResults,
+      error: function(){alert(query);noerrors = false;}});
   }
   return noerrors; //remove this once ajax code is in
 }
@@ -99,6 +108,7 @@ $(document).ready(function() {
   var step1validated = false;
   var step2validated = false;
   var enterpressed = 0;
+  $('#step2').ajaxForm();
   $('#showallclasses').click(function(){
     $('.classes input').each( function() {
       if(!this.checked) {
@@ -157,6 +167,7 @@ $(document).ready(function() {
       $('#realcollege').val($('#college').val());
       $('#step1wrapper').fadeTo('fast',.4);
       $('#step2wrapper').fadeTo('fast',1);
+      $('#resultswrapper').fadeOut('fast');
       $.scrollTo($('#step2wrapper'),800, {offset: {left: 0, top:-60 }});
     }
   });
@@ -199,5 +210,8 @@ $(document).ready(function() {
       $(this).parent().parent().addClass('error');
       $(this).after('<span class="validationerrors help-inline">Class not found.</span>');
     }
+  })
+  $('#startover').click(function() {
+    $('#step1wrapper').click();
   })
  });
