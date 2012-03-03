@@ -53,8 +53,9 @@
               <label class="control-label" for="maxunits">Major</label>
               <div class="controls">
                 <select name="major" class="span3" id="major">
-                  <option value=""></option>
-                  <option value="Computer Science, B.S.">Computer Science, B.S.</option>
+                  <% Major.all.each do |major| %>
+                  <option value = "<%=major.id%>"><%=major.name%></option>
+                  <% end %>
                 </select>
               </div>
             </div>
@@ -71,13 +72,9 @@
               <label class="control-label" for="classsearch">College</label>
               <div class="controls">
                 <select name="college" class="span3" id="college">
-                  <option value=""></option>
-                  <option value="Revelle">Revelle</option>
-                  <option value="Muir">Muir</option>
-                  <option value="Marshall">Marshall</option>
-                  <option value="Warren">Warren</option>
-                  <option value="ERC">ERC</option>
-                  <option value="Sixth">Sixth</option>
+                  <% College.all.each do |college| %>
+                  <option value="<%=college.id%>"><%=college.name%></option>
+                  <% end %>
                 </select>
               </div>
             </div>
