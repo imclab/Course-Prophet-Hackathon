@@ -57,27 +57,13 @@
     				<a class="btn" id="addclass" href="#">Add</a></br>
     				<a href="#" id="showallclasses">Show all classes...</a>
     				<div id="classlist">
-    					<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 1"> CSE 1: name
-						</label>
-						<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 2"> CSE 2: name
-						</label>
-						<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 3"> CSE 3: name
-						</label>
-						<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 4"> CSE 4: name
-						</label>
-						<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 5"> CSE 5: name
-						</label>
-						<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 6"> CSE 6: name
-						</label>
-						<label class="checkbox">
-							<input type="checkbox" name="classestaken" value="CSE 7"> CSE 7: name
-						</label>
+            <% Course.all.each do |course| %>
+            <label class="checkbox">
+              <input type="checkbox" name="classestaken" value=<%=course.id%>>
+                <%=course.name%>
+              </input>
+            </label>
+            <% end %>
 					</div>
     				<div style="text-align: right;">
     					<a class="btn btn-primary btn-large" id="classessubmit">Next</a>

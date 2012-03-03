@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120303033938) do
+ActiveRecord::Schema.define(:version => 20120303064951) do
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(:version => 20120303033938) do
     t.text     "description"
   end
 
+  create_table "department_acronyms", :force => true do |t|
+    t.string   "acronym"
+    t.string   "full_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "majors", :force => true do |t|
     t.text     "name"
     t.text     "department_acronym"
@@ -33,10 +40,10 @@ ActiveRecord::Schema.define(:version => 20120303033938) do
   end
 
   create_table "relations", :force => true do |t|
-    t.integer  "class"
     t.integer  "prereq"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "course"
   end
 
 end
