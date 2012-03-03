@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Course Prophet</title>
+<!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style>
+	body {
+		padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	}
+	.hero-unit {
+		background-image: url("http://subtlepatterns.com/patterns/purty_wood.png");
+	}
+</style>
+<link rel="shortcut icon" href="images/favicon.ico">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <!--for when viewport is narrow on mobile devices-->
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Course Prophet</a>
+          <div class="nav-collapse"> <!--what gets collapsed when the the viewport is narrow-->
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    	<div class="row">
+    		<div class="span12">
+				<div class="hero-unit">
+					<h1>Plan your four years.</h1>
+					<p>Enter the classes you've already taken, get a four year plan back. Can't explain that.</p>
+					<p>
+						<a class="btn btn-primary btn-large">Get Started</a>
+					</p>
+				</div>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="span8 offset2">
+    			<form class="well form-vertical">
+    				<h3>1. Completed Classes</h3>
+    				<p>Enter classes that you've already taken. These will be factored into your four year plan.</p>
+    				<input type="text" class="span3" style="margin: 0 auto; width: 210px" id="" data-provide="typeahead" data-source="[&quot;CSE 1&quot;,&quot;CSE 2&quot;,&quot;CSE 3&quot;,&quot;CSE 4&quot;,&quot;CSE 5&quot;,&quot;CSE 6&quot;,&quot;CSE 7&quot;]" data-items="8">
+    				<a class="btn" id="addclass" href="#">Add</a></br>
+    				<a href="#" id="showallclasses">Show all classes...</a>
+    				<div id="classlist">
+    					<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 1"> CSE 1: name
+						</label>
+						<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 2"> CSE 2: name
+						</label>
+						<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 3"> CSE 3: name
+						</label>
+						<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 4"> CSE 4: name
+						</label>
+						<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 5"> CSE 5: name
+						</label>
+						<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 6"> CSE 6: name
+						</label>
+						<label class="checkbox">
+							<input type="checkbox" name="classestaken" value="CSE 7"> CSE 7: name
+						</label>
+					</div>
+    				<div style="text-align: right;">
+    					<a class="btn btn-primary btn-large" id="classessubmit">Next</a>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <!--put at end of body for faster loading-->
+</body>
+</html>
