@@ -16,7 +16,6 @@ class ApiController < ApplicationController
         i -= 1
         next
       end
-
       add_this_course = true
 
       relations.each do |relation|
@@ -58,9 +57,7 @@ class ApiController < ApplicationController
       params[:classestaken] = []
       return
     end
-
     
-
     db_courses = Major.where("name='Computer Science, B.S'").first.courses.all
     courses = Array.new
 
@@ -151,5 +148,15 @@ class ApiController < ApplicationController
 
   end
 
+  def list_courses
+    if !params.key?(:major)
+      render :json => { :error => "You need to specify a major id!" }
+    end
+    
+    courses = Major.find_by_id(params[:major]).courses
+
+    render :json => { :result => courses }
+
+  end
 
 end
