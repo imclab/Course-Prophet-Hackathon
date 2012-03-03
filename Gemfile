@@ -7,6 +7,8 @@ gem 'nokogiri'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
 
 
 # Gems used only for assets and not required
