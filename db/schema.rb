@@ -24,11 +24,12 @@ ActiveRecord::Schema.define(:version => 20120303033938) do
     t.text     "description"
   end
 
-  create_table "department_acronyms", :force => true do |t|
-    t.string   "acronym"
-    t.string   "full_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "majors", :force => true do |t|
+    t.text     "name"
+    t.text     "department_acronym"
+    t.text     "department"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "relations", :force => true do |t|
