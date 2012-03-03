@@ -71,6 +71,13 @@ cse12.update_attribute(:concurrency, 5)
 cse15l.update_attribute(:concurrency, 5)
 
 cse100 = Course.where("department_id=#{cse.id} and number='100'").first
+cse11 = Course.where("department_id=#{cse.id} and number='11'").first
+cse20 = Course.where("department_id=#{cse.id} and number='20'").first
+cse21 = Course.where("department_id=#{cse.id} and number='21'").first
+Relation.create(prereq: cse11.id, course: cse12.id)
+Relation.create(prereq: cse20.id, course: cse21.id)
+Relation.create(prereq: cse21.id, course: cse100.id)
+Relation.create(prereq: Course.where("department_id=#{cse.id} and number = '30'").first[:id], course: cse100.id)
 
 Course.create([
 {name: 'CSE Elective', department_id: cse.id, number: '000', units: 4},
