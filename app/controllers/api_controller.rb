@@ -65,6 +65,10 @@ class ApiController < ApplicationController
     if !params.key?(:classestaken)
       params[:classestaken] = []
     end
+
+    if !params.key?(:units)
+      params[:units] = '12'
+    end
     
     db_courses = Major.where("name='Computer Science, B.S'").first.courses.all
     courses = Array.new
@@ -93,23 +97,32 @@ class ApiController < ApplicationController
     quarters[0] = Array.new
     j = 0
     i = 1
+    units_per_quarter = params[:units].to_i
+    units = 0
     quarters[0].push(Course.find(list[0]['id']))
     while i < list.count
       Rails.logger.info('I: #{i}')
-      if ( quarters[j].length > 3 )
-        j+= 1
-        quarters[j] = Array.new
-      end
       if list[i]['level'] > list[i-1]['level'] && quarters[j].length > 0
         j += 1
         quarters[j] = Array.new
+        units = 0
+      end
+      if units + Course.find(list[i]['id']).units > units_per_quarter
+        Rails.logger.info("UNITS: #{units + Course.find(list[i]['id']).units}")
+        j += 1
+        quarters[j] = Array.new
+        units = 0
       end
       quarters[j].push(Course.find(list[i]['id']))
+      units += Course.find(list[i]['id']).units
       i += 1
     end
 
     quarters.each do |quarter|
-      difference = 4 - quarter.count
+      units = quarter.map{|c| c.units}.sum
+      difference = ((units_per_quarter - units)/4).to_i
+      Rails.logger.info("UNITS #{units} / #{units_per_quarter}")
+      Rails.logger.info("DIFFERENCE #{difference}")
       difference.times do |i|
         quarter.push({:name => 'General Education',
                       :description => 'A general education course',

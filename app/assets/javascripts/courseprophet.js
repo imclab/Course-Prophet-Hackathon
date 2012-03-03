@@ -44,6 +44,10 @@ function loadResults(data){
     window.print();
   });
   $('#loader').remove();
+  $('#step1wrapper').fadeTo('fast',.25);
+  $('#step2wrapper').fadeTo('fast',.4);
+  $('#resultswrapper').fadeIn('fast');
+  $.scrollTo($('#resultswrapper'),800, {offset: {left: 0, top:-60 }});
 }
 
 function toDate(i){
@@ -183,12 +187,7 @@ $(document).ready(function() {
   });
   $('#step2submit').click(function() {
     event.stopPropagation();
-    if(validateStep2()) {
-      $('#step1wrapper').fadeTo('fast',.25);
-      $('#step2wrapper').fadeTo('fast',.4);
-      $('#resultswrapper').fadeIn('fast');
-      $.scrollTo($('#resultswrapper'),800, {offset: {left: 0, top:-60 }});
-    }
+    validateStep2();
   });
   $("#classsearch").keydown(function(e){
     clearErrors();
