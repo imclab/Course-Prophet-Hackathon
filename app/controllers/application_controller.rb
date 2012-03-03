@@ -3,12 +3,13 @@ class ApplicationController < ActionController::Base
   def index
   end
   def sample_plan
+    courses = Course.joins(:department).select('courses.units, courses.id, courses.number, courses.name, courses.description, departments.acronym').all
     quarters = Array.new()
     (0 .. 15).each do |i|
-      quarters.push([Course.all.sample,
-                    Course.all.sample,
-                    Course.all.sample,
-                    Course.all.sample])
+      quarters.push([courses.sample,
+                    courses.sample,
+                    courses.sample,
+                    courses.sample])
     end
     render :json => quarters
   end

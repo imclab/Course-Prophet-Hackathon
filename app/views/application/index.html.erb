@@ -1,5 +1,5 @@
 <% data_source = '' %>
-  <% Course.all.each do |course| %>
+  <% Course.joins(:department).select('courses.id, courses.number, courses.name, courses.description, departments.acronym').all.each do |course| %>
   <%  data_source += "\"#{course.acronym} #{course.number}\"," %>
 <% end %>
 <% data_source = data_source[0, (data_source.length() -1)] %>
@@ -108,7 +108,7 @@
                 <p class="help-block">Enter classes that you've already taken. These will be factored into your four year plan.</p>
                 <a id="showallclasses">Show all classes...</a>
                 <div id="classlist">
-                  <% Course.all.each do |course| %>
+                  <% Course.joins(:department).select('courses.id, courses.number, courses.name, courses.description, departments.acronym').all.each do |course| %>
                   <label class="checkbox classes">
                     <input type="checkbox" name="classestaken" value='<%=course.id%>' data-course="<%=course.acronym%> <%=course.number%>" />
                       <%=course.name%>
