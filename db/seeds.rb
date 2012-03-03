@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Course.delete_all
+Relation.delete_all
 ParseCourses.getCourses('CSE')
 ParseCourses.getCourses('Math')
+Course.where('name IS NULL').delete_all
 ParseCourses.getPrerequisites

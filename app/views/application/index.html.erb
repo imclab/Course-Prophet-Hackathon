@@ -1,3 +1,8 @@
+<% data_source = '' %>
+  <% Course.all.each do |course| %>
+  <%  data_source += "\"#{course.acronym} #{course.number}\"," %>
+<% end %>
+<% data_source = data_source[0, (data_source.length() -1)] %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,72 +11,162 @@
 <!--[if lt IE 9]>
   <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<style>
-	body {
-		padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-	}
-	.hero-unit {
-		background-image: url("http://subtlepatterns.com/patterns/purty_wood.png");
-	}
-</style>
-<link rel="shortcut icon" href="images/favicon.ico">
 </head>
 <body>
-	<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <!--for when viewport is narrow on mobile devices-->
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Course Prophet</a>
-          <div class="nav-collapse"> <!--what gets collapsed when the the viewport is narrow-->
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <!--for when viewport is narrow on mobile devices-->
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand">Course Prophet</a>
+        <div class="nav-collapse"> <!--what gets collapsed when the the viewport is narrow-->
+          <ul class="nav">
+            <li class="active"><a>Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <div class="hero-unit">
+          <h1>Plan your four years.</h1>
+          <p>Choose your major and enter the classes you've already taken, get a four year plan back. <span id="billoreilly" data-content="<img src=&quot;http://cdn.memegenerator.net/instances/400x/15547039.jpg&quot;/>">You can't explain that.</span></p>
+          <p>
+            <a class="btn btn-primary btn-large" id="getstarted">Get Started</a>
+          </p>
         </div>
       </div>
     </div>
-    <div class="container">
-    	<div class="row">
-    		<div class="span12">
-				<div class="hero-unit">
-					<h1>Plan your four years.</h1>
-					<p>Enter the classes you've already taken, get a four year plan back. Can't explain that.</p>
-					<p>
-						<a class="btn btn-primary btn-large">Get Started</a>
-					</p>
-				</div>
-    		</div>
-    	</div>
-    	<div class="row">
-    		<div class="span8 offset2">
-    			<form class="well form-vertical">
-    				<h3>1. Completed Classes</h3>
-    				<p>Enter classes that you've already taken. These will be factored into your four year plan.</p>
-    				<input type="text" class="span3" style="margin: 0 auto; width: 210px" id="" data-provide="typeahead" data-source="[&quot;CSE 1&quot;,&quot;CSE 2&quot;,&quot;CSE 3&quot;,&quot;CSE 4&quot;,&quot;CSE 5&quot;,&quot;CSE 6&quot;,&quot;CSE 7&quot;]" data-items="8">
-    				<a class="btn" id="addclass" href="#">Add</a></br>
-    				<a href="#" id="showallclasses">Show all classes...</a>
-    				<div id="classlist">
-            <% Course.all.each do |course| %>
-            <label class="checkbox">
-              <input type="checkbox" name="classestaken" value=<%=course.id%>>
-                <%=course.name%>
-              </input>
-            </label>
-            <% end %>
-					</div>
-    				<div style="text-align: right;">
-    					<a class="btn btn-primary btn-large" id="classessubmit">Next</a>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
+    <div class="row" id="step1wrapper">
+      <div class="span8 offset2">
+        <form class="well form-horizontal" id="step1">
+          <fieldset>
+            <legend>1. Major and General Education Requirements</legend>
+            <div class="control-group">
+              <label class="control-label" for="maxunits">Major</label>
+              <div class="controls">
+                <select name="major" class="span3" id="major">
+                  <option value=""></option>
+                  <option value="Computer Science, B.S.">Computer Science, B.S.</option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="classsearch">Include GE Requirements</label>
+              <div class="controls">
+                <label class="checkbox" style="width: 30px;">
+                  <input type="checkbox" name="includeges" value="true" id="includeges"> Yes
+                </label>
+                <p class="help-block">Include your college's GE requirements in your four year plan.</p>
+              </div>
+            </div>
+            <div class="control-group" id="collegeselector">
+              <label class="control-label" for="classsearch">College</label>
+              <div class="controls">
+                <select name="college" class="span3" id="college">
+                  <option value=""></option>
+                  <option value="Revelle">Revelle</option>
+                  <option value="Muir">Muir</option>
+                  <option value="Marshall">Marshall</option>
+                  <option value="Warren">Warren</option>
+                  <option value="ERC">ERC</option>
+                  <option value="Sixth">Sixth</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+          <div style="text-align: right;">
+            <a class="btn btn-primary btn-large" id="step1submit">Next</a>
+          </div>
+        </form>
+      </div>
     </div>
-    <!--put at end of body for faster loading-->
+    <div class="row" id="step2wrapper">
+      <div class="span8 offset2">
+        <form class="well form-horizontal" id="step2">
+          <fieldset>
+            <legend>2. Completed Classes</legend>
+            <div class="control-group">
+              <label class="control-label" for="maxunits">Max Units Per Quarter</label>
+              <div class="controls">
+                <input type="text" id="maxunits" class="input-xlarge span1">
+                <p class="help-block">Enter maximum number of units you want to take per quarter.</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="classsearch">Class Search</label>
+              <div class="controls">
+                <input type="text" id="classsearch" class="input-xlarge span2" style="margin: 0 auto;" data-provide="typeahead" data-source="[<%=data_source%>]" data-items="8">
+                <a class="btn" id="addclass">Add</a>
+                <p class="help-block">Enter classes that you've already taken. These will be factored into your four year plan.</p>
+                <a id="showallclasses">Show all classes...</a>
+                <div id="classlist">
+                  <% Course.all.each do |course| %>
+                  <label class="checkbox classes">
+                    <input type="checkbox" name="classestaken" value='<%=course.id%>' data-course="<%=course.acronym%> <%=course.number%>" />
+                      <%=course.name%>
+                  </label>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="realmajor" name="major" value=""/>
+            <input type="hidden" id="realcollege" name="college" value=""/>
+          </fieldset>
+          <div style="text-align: right;">
+            <a class="btn btn-primary btn-large" id="step2submit">Next</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row" id="resultswrapper">
+      <div class="span8 offset2">
+        <div class="well">
+          <legend>3. Results</legend>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr colspan=2><h1>Winter 2012</h1></td>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <h3>CSE1</h3>
+                  <p>description</p>
+                </td>
+                <td>
+                  <h3>CSE2</h3>
+                  <p>description</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h3>CSE3</h3>
+                  <p>description</p>
+                </td>
+                <td>
+                  <h3>CSE4</h3>
+                  <p>description</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8 offset2">
+        <div style="height: 1000px">
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

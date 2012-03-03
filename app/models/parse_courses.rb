@@ -72,11 +72,11 @@ class ParseCourses
     count = 0
     doc.css('p').each do |p|
       if p['class'] == 'course-name'
-        data[count]['name'] = p.content.dump
+        data[count]['name'] = p.content
         data[count]['units'] = p.content[p.content.length-2].to_i
       end
       if p['class'] == 'course-descriptions'
-        data[count]['description'] = p.content.dump
+        data[count]['description'] = p.content
         count += 1
       end
     end
