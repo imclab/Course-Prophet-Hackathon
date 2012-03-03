@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20120303020635) do
+=======
+ActiveRecord::Schema.define(:version => 20120303033938) do
+>>>>>>> c13afb61e4ca2f6388ab01508bddf595e01d1494
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -19,9 +23,15 @@ ActiveRecord::Schema.define(:version => 20120303020635) do
     t.string   "number"
     t.integer  "units"
     t.string   "professor"
+<<<<<<< HEAD
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+=======
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "description"
+>>>>>>> c13afb61e4ca2f6388ab01508bddf595e01d1494
   end
 
   create_table "department_acronyms", :force => true do |t|
