@@ -34,7 +34,13 @@ function loadResults(data){
     content += '</tbody></table>'
     contents += header + content;
   }
+  contents += '<div id = "print">Print</div>'
   $('#plan').html( contents );
+  $('#print').click(function(){
+    $.post('/api/print',{data: $('#plan').html()},function(){
+      alert('Done!');
+    });
+  });
 }
 
 function toDate(i){

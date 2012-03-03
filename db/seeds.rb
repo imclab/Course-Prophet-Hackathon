@@ -53,6 +53,8 @@ cse8al = Course.where("department_id=#{cse.id} and number = '8AL'").first
 cse8a.update_attribute(:concurrency, 1)
 cse8al.update_attribute(:concurrency, 1)
 
+Relation.where("prereq=#{cse8al.id}").destroy_all
+
 cse4gs = Course.where("department_id=#{cse.id} and number = '4GS'").first
 cse6gs = Course.where("department_id=#{cse.id} and number = '6GS'").first
 cse4gs.update_attribute(:concurrency, 2)
@@ -63,20 +65,10 @@ cse140l = Course.where("department_id=#{cse.id} and number = '140L'").first
 cse140.update_attribute(:concurrency, 3)
 cse140l.update_attribute(:concurrency, 3)
 
-cse8a = Course.where("department_id=#{cse.id} and number = '8A'").first
-cse8al = Course.where("department_id=#{cse.id} and number = '8AL'").first
-cse8a.update_attribute(:concurrency, 4)
-cse8al.update_attribute(:concurrency, 4)
-
 cse12 = Course.where("department_id=#{cse.id} and number = '12'").first
 cse15l = Course.where("department_id=#{cse.id} and number = '15L'").first
 cse12.update_attribute(:concurrency, 5)
 cse15l.update_attribute(:concurrency, 5)
-
-cse103 = Course.where("department_id=#{cse.id} and number = '103'").first
-math183 = Course.where("department_id=#{math.id} and number = '183'").first
-cse103.update_attribute(:concurrency, 6)
-math183.update_attribute(:concurrency, 6)
 
 cse100 = Course.where("department_id=#{cse.id} and number='100'").first
 

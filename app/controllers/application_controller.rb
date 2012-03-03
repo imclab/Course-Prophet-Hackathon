@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
     end
     render :json => quarters
   end
+  def print
+    params[:data]
+    render :text => "OK"
+  end
 end
