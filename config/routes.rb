@@ -1,4 +1,6 @@
 CourseProphet::Application.routes.draw do
+
+  root :to => 'Application#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
