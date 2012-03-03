@@ -117,3 +117,11 @@ MajorCourse.create([
 {course_id: Course.where("department_id=#{cse.id} and number = '141'").first.id, major_id: csbs.id},
 {course_id: Course.where("department_id=#{cse.id} and number = '141L'").first.id, major_id: csbs.id}
 ])
+
+Relation.all.each do |relation|
+  r2 = Relation.where('course = ? and prereq = ?',relation.prereq,relation.course)
+  if r2.count > 0
+    relation.delete
+    r2.delete_all
+  end
+end
