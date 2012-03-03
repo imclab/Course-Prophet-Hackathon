@@ -12,18 +12,19 @@ function selectCourse(name){
 
 function loadResults(data){
   data = data.plan;
-  var contents = "<legend>3. Results</legend>";
+  var contents = '<legend>3. Results</legend><div style="text-align: right;">'+
+  '<a class="btn btn-primary" id="print">Print</a>'+
+  '<a class="btn btn-warning" id="startover">Start Over</a></div>'
   for(var i = 0; i < data.length; i++){
     var header = 
-    '<table class="table table-striped table-bordered"><thead><tr colspan=2><h1>' +
-    toDate(i)+ ' ' + sumUnits(data[i]) + ' units.' +'</h1></td></thead>'
+    '<table class="table table-striped table-bordered"><thead><tr colspan=2><th><h1>' +
+    toDate(i)+ ': ' + sumUnits(data[i]) + ' units</h1></th></tr></thead>'
     var content = "<tbody>";
     for (var j = 0; j < data[j].length; j++){
       if (j % 2 == 0){
         content += '<tr>'
       }
-      content += '<td><h3>' + data[i][j].name + ' - ' + data[i][j].units +
-      ' units</h3><p>'+ data[i][j].description+'</p></td>';
+      content += '<td><h3>' + data[i][j].name + '</h3><p>'+ data[i][j].description+'</p></td>';
       if ( j % 2 == 1){
         content += '</tr>'
       }
@@ -34,13 +35,15 @@ function loadResults(data){
     content += '</tbody></table>'
     contents += header + content;
   }
-  contents += '<div id = "print">Print</div>'
+
   $('#plan').html( contents );
-  $('#print').click(function(){
-    $.post('/api/print',{data: $('#plan').html()},function(){
-      alert('Done!');
-    });
+  $('#startover').click(function() {
+    $('#step1wrapper').click();
   });
+  $('#print').click(function(){
+    window.print();
+  });
+  $('#loader').remove();
 }
 
 function toDate(i){
@@ -97,14 +100,15 @@ function validateStep2() {
     noerrors = false;
   }
   if(noerrors) {
-   query = $('#step2').serialize();
-   $.ajax({
-      type: "POST",
-      url: '/api/plan?' + query,
-      async: false,
-      dataType: 'JSON',
-      success: loadResults,
-      error: function(){alert(query);noerrors = false;}});
+    $('#step2submit').append( '<img id = "loader" src="assets/ajax-loader-large.gif" />' );
+    query = $('#step2').serialize();
+
+    $.ajax({
+        type: "POST",
+        url: '/api/plan?' + query,
+        dataType: 'JSON',
+        success: loadResults,
+        error: function(){alert(query);noerrors = false;}});
   }
   return noerrors; //remove this once ajax code is in
 }
@@ -151,6 +155,7 @@ $(document).ready(function() {
       $.scrollTo($('#step1wrapper'),800, {offset: {left: 0, top:-60 }});
     }
   });
+
   $('#step2wrapper').click(function() {
     if($('#step2wrapper').css("opacity") != 1 && validateStep1()) {
       $('#step1wrapper').fadeTo('fast',.4);
@@ -215,8 +220,5 @@ $(document).ready(function() {
       $(this).parent().parent().addClass('error');
       $(this).after('<span class="validationerrors help-inline">Class not found.</span>');
     }
-  })
-  $('#startover').click(function() {
-    $('#step1wrapper').click();
-  })
+  });
  });

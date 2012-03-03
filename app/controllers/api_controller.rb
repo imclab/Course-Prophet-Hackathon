@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
 
-  def top (required,plan,level)
+  def top (required,plan,level,taken)
     i = 0
     Rails.logger.info("Level: #{level}")
     if ( level > 25)
@@ -32,6 +32,15 @@ class ApiController < ApplicationController
           end
         end
         if !can_take
+          taken.each do |taken|
+            if relation.prereq == taken
+              can_take = true
+              break
+            end
+          end
+        end
+
+        if !can_take
           add_this_course = false
         end
       end
@@ -46,7 +55,7 @@ class ApiController < ApplicationController
 
     if required.count > 0
       Rails.logger.info("Included: #{plan.to_yaml}")
-      return top(required,plan,level + 1)
+      return top(required,plan,level + 1,taken)
     else
       return plan
     end
@@ -56,7 +65,6 @@ class ApiController < ApplicationController
   def generate_plan
     if !params.key?(:classestaken)
       params[:classestaken] = []
-      return
     end
     
     db_courses = Major.where("name='Computer Science, B.S'").first.courses.all
@@ -65,7 +73,9 @@ class ApiController < ApplicationController
     db_courses.each do |course|
       skip = false
       params[:classestaken].each do |classtaken|
-        if course.id == classtaken
+        Rails.logger.info("#{classtaken} #{course.id} FOO")
+        if course.id == classtaken.to_i
+          Rails.logger.info("#{Course.find(classtaken).name} is taken FOO")
           skip = true
           break
         end
@@ -95,13 +105,13 @@ class ApiController < ApplicationController
     end
     #render :json => {:courses => db_courses}
     #return 
-    list = top(courses,Array.new,0)
+    list = top(courses,Array.new,0,params[:classestaken].map{|x| x.to_i})
     list.sort_by {|x| x['level']}
     quarters = Array.new
     quarters[0] = Array.new
     j = 0
     i = 1
-    quarters[0].push(Course.find(list[i]['id']))
+    quarters[0].push(Course.find(list[0]['id']))
     while i < list.count
       Rails.logger.info('I: #{i}')
       if ( quarters[j].length > 3 )
@@ -131,41 +141,6 @@ class ApiController < ApplicationController
 
     render :json => {:plan => quarters}
 
-    # courses.each do |t|
-    #   value = []
-    #   Relation.where(:course => t[:id]).each do |a|
-    #     value << a[:prereq]
-    #     if courses.find_by_id(a[:prereq]) == nil
-    #       courses << Course.find_by_id(a[:prereq])
-    #     end
-    #   end
-    #   list[t[:id]] = value
-    # end
-
-    # sorted = list.tsort
-
-    # ret = []
-    # temp = []
-
-    # while !sorted.empty?
-    #   units = 0
-    #   while units <= params[:units].to_i
-    #     course = Course.find_by_id sorted.pop if course == nil
-    #     if course == nil
-    #       break
-    #     end
-    #     if units + course[:units] > params[:units].to_i
-    #       break
-    #     end
-    #     units += course[:units]
-    #     temp << course[:name]
-    #     course = nil
-    #   end
-    #   ret << temp
-    #   temp = []
-    # end
-
-    # render :json => {:result => ret}
 
   end
 

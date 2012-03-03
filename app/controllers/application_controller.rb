@@ -13,8 +13,14 @@ class ApplicationController < ActionController::Base
     end
     render :json => quarters
   end
+
   def print
-    params[:data]
-    render :text => "OK"
+    html = params[:data]
+    kit = PDFKit.new(html, :page_size => 'Letter')
+    kit.stylesheets << 'app/assets/stylesheets/courseprophet.css'
+    kit.stylesheets << 'app/assets/stylesheets/bootstrap.css'
+    filename = Time.now.to_i.to_s + '.pdf'
+    kit.to_file(filename)
+    render :json => {:filename => filename}
   end
 end
