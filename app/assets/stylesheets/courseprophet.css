@@ -16,3 +16,12 @@ body {
 td {
   width: 50%;
 }
+ #loader{
+  padding-left: 5px;
+  height: 20px;
+  width: 20px;
+ }
+
+ table {
+  margin-bottom:  40px !important;
+ }
