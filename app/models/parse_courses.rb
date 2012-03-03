@@ -74,7 +74,11 @@ class ParseCourses
     count = 0
     doc.css('p').each do |p|
       if p['class'] == 'course-name'
-        data[count]['name'] = p.content
+        if upper == 'MATH'
+          data[count]['name'] = 'Math ' + p.content
+        else
+          data[count]['name'] = p.content
+        end
         data[count]['units'] = p.content[p.content.length-2].to_i
       end
       if p['class'] == 'course-descriptions'

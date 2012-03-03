@@ -22,8 +22,7 @@ function loadResults(data){
       if (j % 2 == 0){
         content += '<tr>'
       }
-      content += '<td><h3>' + data[i][j].name + ' - ' + data[i][j].units +
-      ' units</h3><p>'+ data[i][j].description+'</p></td>';
+      content += '<td><h3>' + data[i][j].name + '</h3><p>'+ data[i][j].description+'</p></td>';
       if ( j % 2 == 1){
         content += '</tr>'
       }

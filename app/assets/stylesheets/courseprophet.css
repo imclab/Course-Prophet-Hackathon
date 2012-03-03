@@ -13,3 +13,6 @@ body {
 #showallclasses{
   cursor: pointer;
 }
+td {
+  width: 50%;
+}

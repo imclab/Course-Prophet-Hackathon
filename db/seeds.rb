@@ -35,8 +35,8 @@ math = depts[1]
 science = depts[2]
 
 sci_classes = Course.create([
-  {name: 'General Science I', department_id: science.id, number: '1', units: 4},
-  {name: 'General Science II', department_id: science.id, number: '2', units: 4},
+  {name: 'General Science I (4)', description: 'A general science course', department_id: science.id, number: '1', units: 4},
+  {name: 'General Science II (4)', description: 'Another general science course', department_id: science.id, number: '2', units: 4},
 ])
 
 Relation.create({prereq: sci_classes[0].id, course: sci_classes[1].id})
@@ -137,7 +137,7 @@ Relation.all.each do |relation|
   end
 end
 
-alg = Course.where("name='100A. Abstract Algebra I (4)'").first.id
+alg = Course.where("name='Math 100A. Abstract Algebra I (4)'").first.id
 Relation.where("prereq=#{alg}").delete_all
 
 cse11 = Course.where("department_id=#{cse.id} and number='11'").first.id
