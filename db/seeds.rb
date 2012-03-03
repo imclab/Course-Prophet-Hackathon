@@ -54,7 +54,7 @@ cse8a.update_attribute(:concurrency, 1)
 cse8al.update_attribute(:concurrency, 1)
 
 Relation.where("prereq=#{cse8al.id}").destroy_all
-
+Relation.create(prereq: cse8a.id, course: Course.where("number='8B'").first.id)
 cse4gs = Course.where("department_id=#{cse.id} and number = '4GS'").first
 cse6gs = Course.where("department_id=#{cse.id} and number = '6GS'").first
 cse4gs.update_attribute(:concurrency, 2)
