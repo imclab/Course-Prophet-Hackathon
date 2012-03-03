@@ -11,4 +11,6 @@ class Course < ActiveRecord::Base
 	# remember to add which column, which should be through acronyms
 	has_one :department, :through => :department_acronyms
 
+  belongs_to :major
+
 end
