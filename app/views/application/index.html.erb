@@ -48,7 +48,7 @@
       <div class="span8 offset2">
         <form class="well form-horizontal" id="step1">
           <fieldset>
-            <legend>1. Major and General Education Requirements</legend>
+            <legend>1. Major<!-- and General Education Requirements--></legend>
             <div class="control-group">
               <label class="control-label" for="maxunits">Major</label>
               <div class="controls">
@@ -59,7 +59,7 @@
                 </select>
               </div>
             </div>
-            <div class="control-group">
+            <!-- <div class="control-group">
               <label class="control-label" for="classsearch">Include GE Requirements</label>
               <div class="controls">
                 <label class="checkbox" style="width: 30px;">
@@ -77,7 +77,7 @@
                   <% end %>
                 </select>
               </div>
-            </div>
+            </div> -->
           </fieldset>
           <div style="text-align: right;">
             <a class="btn btn-primary btn-large" id="step1submit">Next</a>
@@ -91,11 +91,11 @@
           <fieldset>
             <legend>2. Completed Classes</legend>
             <div class="control-group">
-              <label class="control-label" for="maxunits">Max Units Per Quarter</label>
-              <div class="controls">
-                <input type="text" id="maxunits" class="input-xlarge span1">
-                <p class="help-block">Enter maximum number of units you want to take per quarter.</p>
-              </div>
+              <!-- <label class="control-label" for="maxunits">Max Units Per Quarter</label>
+              <div class="controls"> -->
+                <input type="hidden" id="maxunits" value = '12' class="input-xlarge span1">
+                <!-- <p class="help-block">Enter maximum number of units you want to take per quarter.</p>-->
+              <!-- </div> -->
             </div>
             <div class="control-group">
               <label class="control-label" for="classsearch">Class Search</label>
@@ -107,7 +107,7 @@
                 <div id="classlist">
                   <% Course.joins(:department).select('courses.id, courses.number, courses.name, courses.description, departments.acronym').all.each do |course| %>
                   <label class="checkbox classes">
-                    <input type="checkbox" name="classestaken" value='<%=course.id%>' data-course="<%=course.acronym%> <%=course.number%>" />
+                    <input type="checkbox" name="classestaken[]" value='<%=course.id%>' data-course="<%=course.acronym%> <%=course.number%>" />
                       <%=course.name%>
                   </label>
                   <% end %>

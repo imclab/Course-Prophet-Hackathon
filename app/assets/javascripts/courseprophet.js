@@ -11,7 +11,7 @@ function selectCourse(name){
 }
 
 function loadResults(data){
-  
+  data = data.plan;
   var contents = "<legend>3. Results</legend>";
   for(var i = 0; i < data.length; i++){
     var header = 
@@ -97,10 +97,10 @@ function validateStep2() {
     noerrors = false;
   }
   if(noerrors) {
-   query = $('#step2').formSerialize();
+   query = $('#step2').serialize();
    $.ajax({
       type: "POST",
-      url: '/api/generatePlan?' + query,
+      url: '/api/plan?' + query,
       async: false,
       dataType: 'JSON',
       success: loadResults,
