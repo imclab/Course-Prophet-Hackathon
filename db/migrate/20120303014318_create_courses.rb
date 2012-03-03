@@ -11,6 +11,9 @@ class CreateCourses < ActiveRecord::Migration
     	# course number i.e. "140" or "140L"
     	t.string :number
 
+    	# units per course i.e. "4 units or 6 units"
+    	t.integer :units
+
     	# course professor i.e. "Rick Ord"
     	t.string :professor
 
